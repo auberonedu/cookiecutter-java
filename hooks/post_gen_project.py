@@ -14,10 +14,8 @@ def flatten():
 
     os.chdir(parent)
 
-    try:
-        shutil.rmtree(project_dir)
-    except PermissionError:
-        pass  # Ignore if deletion fails
+
+    shutil.rmtree(project_dir)
 
 if __name__ == "__main__":
     flatten()
