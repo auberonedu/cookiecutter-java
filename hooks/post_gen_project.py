@@ -1,5 +1,6 @@
 import os
 import shutil
+import gc
 
 def flatten():
     project_dir = os.getcwd()  # .../demo
@@ -14,8 +15,12 @@ def flatten():
 
     os.chdir(parent)
 
+    gc.collect()  # Force Python to clean up handles
 
-    shutil.rmtree(project_dir)
+    try:
+        shutil.rmtree(project_dir)
+    except PermissionError:
+        pass  # Ignore if still locked
 
 if __name__ == "__main__":
     flatten()
